@@ -1,0 +1,28 @@
+#map_container {
+	position: relative;
+}
+
+#dropdown_selection_container {
+	    display: inline-block;
+	    font-size: 14px;
+	    line-height: 20px;
+	    font-weight: bold;	
+	    color: #767676;
+	    font-family: "Guardian Text Sans Web", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
+	    @media (max-width: 460px) {
+		#dropdown_select {
+		  
+		  width:200px;
+		  /*float: left;*/
+		}  
+		}
+
+}
+
+
+
+
+#dropdown_selection {
+
+}

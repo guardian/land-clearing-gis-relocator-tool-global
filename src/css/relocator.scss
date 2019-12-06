@@ -1,0 +1,50 @@
+@import "mq";
+
+.interactive_target_column {
+    position: relative;
+
+}
+
+#map { 
+  width: 100%;
+  height: 600px; 
+
+}
+
+#map_caption {
+  font-size: 12px;
+  margin-top: 10px;
+  line-height: 16px;
+  font-family: 'Guardian Sans Web';
+}
+
+#headline_container {
+  box-sizing: border-box;
+  /*padding-left: 10px;
+  padding-right: 10px;*/
+}
+
+#headline_container h2 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  font-family: 'Guardian Egyptian Web', Georgia, serif
+}
+
+
+h1, h3 {
+  line-height: 1.3rem;
+}
+
+#headline_selection p {
+  font-size: 14px;
+  line-height: 20px;
+  color: rgb(118, 118, 118);
+  font-family: "Guardian Text Sans Web", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#map_caption {
+  padding-left: 10px;
+  padding-right: 10px;
+  color: rgb(118, 118, 118)
+}

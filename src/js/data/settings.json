@@ -1,0 +1,51 @@
+{
+
+  "cities" : [{
+              "id" : 0,
+              "city" : "London",
+              "latitude" : 51.507836,
+              "longitude" : -0.110296
+            },
+            {
+              "id" : 1,
+              "city" : "New York",
+              "latitude" : 40.813372,
+              "longitude" : -73.941155
+            },{
+              "id" : 2,
+              "city" : "Paris",
+              "latitude" : 48.857249,
+              "longitude" : 2.353937
+            },{
+              "id" : 3,
+              "city" : "Sydney",
+              "latitude" : -33.861336,
+              "longitude" : 151.210798
+            },{
+               "id" : 4,
+              "city" : "Melbourne",
+              "latitude" : -37.786966,
+              "longitude" : 145.006262
+            },{
+               "id" : 5,
+              "city" : "Brisbane",
+              "latitude" : -27.437103,
+              "longitude" : 153.014960
+            },{
+               "id" : 6,
+              "city" : "Adelaide",
+              "latitude" : -34.889160,
+              "longitude" : 138.580757
+            },{
+              "id" : 7,
+              "city" : "Perth",
+              "latitude" : -31.961967,
+              "longitude" : 115.859714
+            },{
+              "id" : 8,
+              "city" : "Wellington",
+              "latitude" : -41.298606,
+              "longitude" : 174.777824
+            }]
+
+}

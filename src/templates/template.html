@@ -1,0 +1,61 @@
+<div class="embed">
+
+	<div class="interactive_target_column main-col">
+
+		<div id="headline_container">
+
+			<div id="headline_selection">
+
+				<h2>{{headline}}</h2>
+
+				<p>{{{description}}} <span id="description_explainer"></span></p>
+
+			</div>
+
+		</div>
+
+		<div id="dropdown_selection_container">
+			
+			<div id="dropdown_selection">
+
+				Currently showing: 
+
+                <select value='{{displayGeo}}'>
+
+                    {{#googledoc}}
+
+                        <option value='{{this.id}}'>{{this.dropdown}}</option>
+
+                    {{/googledoc}}
+
+                </select>
+
+			</div>
+
+		</div>
+
+            <div id="cityselect">
+
+                <select value='{{displayCity}}'>
+
+                    {{#cities}}
+
+                        <option value='{{this.id}}'>{{this.city}}</option>
+
+                    {{/cities}}
+
+                </select>
+
+            </div>
+
+	</div>
+
+	<div id="map_container">
+		
+		<div id="map"></div>
+
+	</div>
+
+	<div id="map_caption">Source: Guardian graphic: {{source}}</div>
+
+</div>
