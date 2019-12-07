@@ -7,6 +7,10 @@
 @import "searchbox";
 @import "dropdown";
 
+.interactive-wrapper {
+
+
+
 #cityselect {
 	width: 100%;
 	margin-top: 20px;
@@ -16,4 +20,6 @@
 
 #map_caption {
 	font-family: "Guardian Text Sans Web", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
 }

@@ -39,7 +39,7 @@ export class Relocator {
         return (country==='GB') ? 0 :
             (country==='US') ? 1 :
             (country==='NZ') ? 8 :
-            (country==='AU') ? Math.floor(Math.random() * 7) + 3  : 0 ;
+            (country==='AU') ? Math.floor(Math.random() * 5) + 3  : 0 ;
 
     }
 
@@ -47,9 +47,11 @@ export class Relocator {
 
         var self = this
 
-        console.log("Bee bee beep")
+        console.log(Math.floor(Math.random() * 7) + 3)
 
           if (window.guardian) {
+
+            console.log("yep")
 
             try {
 
@@ -58,7 +60,11 @@ export class Relocator {
                 console.log(window.guardian.config.page.pageAdTargeting.cc)
 
                 self.database.displayCity = self.getCity(window.guardian.config.page.pageAdTargeting.cc)
-
+                console.log("displayCity", self.database.displayCity)
+                
+                self.settings.latitude = self.database.cities[self.database.displayCity].latitude
+                self.settings.longitude = self.database.cities[self.database.displayCity].longitude
+                
                 clearInterval(self.interval);
 
                 self.interval = null
@@ -85,17 +91,24 @@ export class Relocator {
                 clearInterval(self.interval);
 
                 self.interval = null
+                self.database.displayCity = Math.floor(Math.random() * 8);
+                self.settings.latitude = self.database.cities[self.database.displayCity].latitude
+                self.settings.longitude = self.database.cities[self.database.displayCity].longitude
 
                 self.ractivate()
 
           }
 
+
+
     }
 
     ractivate() {
 
-        var self = this
+        console.log("ractivate")
 
+        var self = this
+        Ractive.DEBUG = false;
         this.ractive = new Ractive({
             events: { 
                 tap: ractiveTap,
@@ -108,6 +121,7 @@ export class Relocator {
 
         this.ractive.observe('displayGeo', ( newValue, oldValue ) => {
 
+            console.log("newValue",newValue)
             self.database.displayGeo = newValue;
 
             if (oldValue != undefined) {
@@ -132,7 +146,7 @@ export class Relocator {
 
         this.ractive.observe('displayCity', ( newValue, oldValue ) => {
 
-            console.log("Beep")
+            console.log("newValue", newValue)
 
             self.database.displayCity = newValue;
 
