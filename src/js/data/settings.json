@@ -43,9 +43,9 @@
               "longitude" : 115.859714
             },{
               "id" : 8,
-              "city" : "Wellington",
-              "latitude" : -41.298606,
-              "longitude" : 174.777824
+              "city" : "Auckland",
+              "latitude" : -36.952849,
+              "longitude" : 174.895541 
             }]
 
 }
