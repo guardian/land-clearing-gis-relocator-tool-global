@@ -42,9 +42,11 @@
 
             <div id="cityselect">
 
-            	Over the city of:
+            	{{#if dropCity}}Over the city of: {{/if}}
 
                 <select value='{{displayCity}}'>
+
+                	{{#if dropCity}}{{else}}<option selected value='-1'>Select a city...</option>{{/if}}
 
                     {{#cities}}
 
@@ -74,7 +76,7 @@
 
                     <form autocomplete="off">
 
-                        <input on-keydown='keydown' class="frontier-sr-only" id="inputbox" placeholder="Enter a city" size="90" type="text" value="{{user_input}}">
+                        <input on-keydown='keydown' class="frontier-sr-only" id="inputbox" placeholder="Search for more towns and cities" size="90" type="text" value="{{user_input}}">
 
                     </form>
 

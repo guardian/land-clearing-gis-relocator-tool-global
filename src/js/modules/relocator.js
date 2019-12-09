@@ -160,8 +160,7 @@ export class Relocator {
 
                     self.database.user_input = ""
                     self.database.list = false
-                    self.ractive.set(self.database)
-                    self.reposition(lat, lng)
+                    self.reposition(lat, lng, false)
 
                 }
 
@@ -177,9 +176,7 @@ export class Relocator {
 
             self.database.list = false
 
-            self.ractive.set(self.database)
-
-            self.reposition(lat, lng)
+            self.reposition(lat, lng, false)
 
         })
 
@@ -201,9 +198,7 @@ export class Relocator {
 
                 this.settings.area = this.database.googledoc[self.database.displayGeo].area * this.settings.multiply 
 
-                self.ractive.set(self.database)
-
-                self.reposition(self.settings.latitude, self.settings.longitude)
+                self.reposition(self.settings.latitude, self.settings.longitude, false)
 
 
             }
@@ -211,21 +206,15 @@ export class Relocator {
 
         this.ractive.observe('displayCity', ( newValue, oldValue ) => {
 
-            console.log("newValue", newValue)
+            if (oldValue != undefined && newValue != -1) {
 
-            self.database.displayCity = newValue;
-
-            if (oldValue != undefined) {
+                self.database.displayCity = newValue;
 
                 self.settings.latitude = self.database.cities[self.database.displayCity].latitude
 
                 self.settings.longitude = self.database.cities[self.database.displayCity].longitude
-
-                console.log(self.settings.latitude)
-
-                console.log(self.settings.longitude)
-
-                self.reposition(self.settings.latitude, self.settings.longitude)
+            
+                self.reposition(self.settings.latitude, self.settings.longitude, true)
 
 
             }
@@ -235,7 +224,7 @@ export class Relocator {
 
             if (self.database.userLatitude!=null) {
 
-               self.reposition(self.database.userLatitude, self.database.userLongitude)
+               self.reposition(self.database.userLatitude, self.database.userLongitude, false)
 
             }
 
@@ -342,10 +331,8 @@ export class Relocator {
           var coord = e.latlng;
           self.settings.latitude = coord.lat;
           self.settings.longitude = coord.lng;
-          self.reposition(self.settings.latitude, self.settings.longitude)
-          });
-
-
+          self.reposition(self.settings.latitude, self.settings.longitude, false)
+        });
 
         self.geocheck()
 
@@ -410,7 +397,7 @@ export class Relocator {
 
     }
 
-    reposition(latitude,longitude) {
+    reposition(latitude,longitude,dropCity=true) {
 
         var self = this
 
@@ -425,6 +412,15 @@ export class Relocator {
         }
 
         self.createPoly(latitude,longitude)
+
+        if (!dropCity) {
+            self.database.displayCity = -1
+            self.database.dropCity=false
+        } else {
+            self.database.dropCity=true
+        }
+
+        self.ractive.set(self.database)
 
     }
 

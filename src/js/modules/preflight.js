@@ -68,6 +68,8 @@ export class Preflight {
 
         this.database.displayCity = 0
 
+        this.database.dropCity = true
+
         this.database.googledoc = this.googledoc
 
         this.database.source = this.googledoc[self.database.displayGeo].source
@@ -199,7 +201,7 @@ export class Preflight {
 
                 value.latitude = +value.latitude
                 value.longitude = +value.longitude
-                value["meta"] = value.postcode + ' | ' + value.place_name;
+                value["meta"] = value.name + ' | ' + value.admin;
 
             });
 

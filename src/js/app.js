@@ -9,10 +9,10 @@ var app = {
 
 	preload: (key) => {
 
-		loadJson(`https://interactive.guim.co.uk/docsdata/1bClr8buuWUaKj01NolwaJy2JR_SR5hKEAjQoJPaGKcw.json`)
+		loadJson(`https://interactive.guim.co.uk/docsdata/1T49ad9W3eOMdRaWZE8eAiPMYbp5mT7BcwxDUyGAvvKo.json`)
 			.then((resp) => {
 
-				app.init(resp.sheets.postcodes)
+				app.init(resp.sheets.Sheet1)
 				
 			})
 
