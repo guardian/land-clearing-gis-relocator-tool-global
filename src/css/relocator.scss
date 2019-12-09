@@ -1,5 +1,13 @@
 @import "mq";
 
+.interactive-wrapper {
+
+border-top: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dcdcdc;
+    padding-top: 10px;
+    padding-bottom: 5px;
+
+
 .interactive_target_column {
     position: relative;
 
@@ -31,20 +39,47 @@
   font-family: 'Guardian Egyptian Web', Georgia, serif
 }
 
+.figureTitle {
+    font-size: 20px;
+      line-height: 28px;
+      font-weight: 600;
+      -webkit-font-smoothing: antialiased;
+      color: #333333;
+      font-family: "GH Guardian Headline", Georgia, serif;
+      margin-bottom: 2px;
+  }
+
+  .subTitle {
+    font-size: 16px;
+      line-height: 20px;
+      color: #333333;
+      font-family: "Guardian Egyptian Web", Georgia, serif;
+  }
+
+
+.subTitle b {
+  color:#c70000;
+}
 
 h1, h3 {
   line-height: 1.3rem;
 }
 
-#headline_selection p {
+/*#headline_selection p {
   font-size: 14px;
   line-height: 20px;
   color: rgb(118, 118, 118);
   font-family: "Guardian Text Sans Web", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
+}*/
+
+#headline_selection {
+  margin-bottom: 10px;
 }
 
 #map_caption {
   padding-left: 10px;
   padding-right: 10px;
   color: rgb(118, 118, 118)
+}
 }
