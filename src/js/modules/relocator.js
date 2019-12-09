@@ -1,5 +1,6 @@
 import template from '../../templates/template.html'
 import GoogleMapsLoader from 'google-maps';
+//import GoogleMapsLoader from '@google/maps'
 import mapstyles from '../data/mapstyles.json'
 import L from '../modules/leaflet/dist/leaflet-src'
 import '../modules/Leaflet.GoogleMutant.js'
@@ -106,6 +107,70 @@ export class Relocator {
             template: template,
         })
 
+        this.ractive.observe('user_input', ( input ) => {
+
+            if (input && input.length > 2) {
+
+               self.database.list = true
+
+                self.database.postcodeShortlist = self.database.postcodes.filter(function(item) {
+
+                    var results = item.meta.toLowerCase()
+
+                    if (results.includes(input.toLowerCase())) {
+
+                        return item
+
+                    }
+
+                });
+
+            } else {
+
+               self.database.list = false
+
+            }
+
+            self.ractive.set(self.database)
+
+        });
+
+
+        this.ractive.on( 'keydown', function ( event ) {
+
+            if (event.original.keyCode===13) {
+
+                if (self.database.postcodeShortlist.length > 0 && self.database.list) {
+
+                    var lat = self.database.postcodeShortlist[0].latitude
+                    var lng = self.database.postcodeShortlist[0].longitude
+
+                    self.database.user_input = ""
+                    self.database.list = false
+                    self.ractive.set(self.database)
+                    self.reposition(lat, lng)
+
+                }
+
+                event.original.preventDefault()
+
+            }
+           
+        });
+
+        this.ractive.on('postcode', (context, lat, lng) => {
+
+            self.database.user_input = ""
+
+            self.database.list = false
+
+            self.ractive.set(self.database)
+
+            self.reposition(lat, lng)
+
+        })
+
+
         this.ractive.observe('displayGeo', ( newValue, oldValue ) => {
 
             self.database.displayGeo = newValue;
@@ -152,10 +217,57 @@ export class Relocator {
             }
         });
 
-        
+        this.ractive.on( 'geo', function ( context ) {
+
+            if (self.database.userLatitude!=null) {
+
+               self.reposition(self.database.userLatitude, self.database.userLongitude)
+
+            }
+
+        });
+
         this.googleizer()
 
     }
+
+    geocheck() {
+
+        var self = this
+
+        self.database.geolocation = ("geolocation" in navigator) ? true : false ;
+
+        console.log("Geolocation: " + self.database.geolocation)
+
+        var geo_options = {
+
+          enableHighAccuracy : true, 
+
+          maximumAge : 30000, 
+
+          timeout : 27000
+
+        };
+
+        var getCoor = (position) => {
+
+            self.database.userLatitude = position.coords.latitude
+
+            self.database.userLongitude = position.coords.longitude
+
+        }
+
+        var errorCoor = (error) => {
+            
+            self.database.geolocation = false
+
+        }
+
+        navigator.geolocation.getCurrentPosition(getCoor, errorCoor, geo_options);
+
+
+    }
+
 
     multiplyer(unit) {
 
@@ -211,6 +323,17 @@ export class Relocator {
         }).addTo(self.map);
 
         self.createPoly(self.settings.latitude, self.settings.longitude)
+
+        this.map.on('click', function(e){
+          var coord = e.latlng;
+          self.settings.latitude = coord.lat;
+          self.settings.longitude = coord.lng;
+          self.reposition(self.settings.latitude, self.settings.longitude)
+          });
+
+
+
+        self.geocheck()
 
     }
 

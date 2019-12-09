@@ -4,16 +4,6 @@
 @import "grid";
 @import "relocator";
 @import "leaflet";
-@import "searchbox";
 @import "dropdown";
+@import "geo";
 
-#cityselect {
-	width: 100%;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	font-family: "Guardian Text Sans Web", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-}
-
-#map_caption {
-	font-family: "Guardian Text Sans Web", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-}

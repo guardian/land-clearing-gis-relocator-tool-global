@@ -1,0 +1,96 @@
+
+.navigation-container {
+
+	width: 100%;
+	margin-top: 20px;
+	font-family: "Guardian Text Sans Web", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	box-sizing: border-box;
+	padding: 20px;
+	background-color: #38454F;
+
+	#cityselect {
+		float: left;
+		select {
+			height: 30px;
+		}
+	}
+
+	.geo-switch {
+		width: 30px;
+		height: 30px;
+		float: right;
+		border-radius: 50%;
+		background-color: #FFAF1C;
+		cursor: pointer;
+		background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTAwIDEwMDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIHBvaW50cz0iNDcuNDUsNTMuNTggMTMuMyw0Ny44NSA4NywxNC4wMyA1MS4zNiw4NS45MiAiLz48L3N2Zz4=);
+		background-size: 90%;
+		background-position: left center;
+		background-repeat: no-repeat;
+		margin-left: 10px;
+	}
+
+	.searchbox-container {
+		width: 100%;
+		height: 30px;
+		overflow: visible;
+		z-index: 9999999;
+		position: relative;
+	}
+
+	#searchbox {
+		width: calc( 100% - 160px);
+		float: right;
+		height: 30px;
+		margin: auto;
+		box-sizing: border-box;
+		color: black;
+
+		.inputbox-holder {
+		    width: 100%;
+		    box-sizing: border-box;
+		}
+
+		#inputbox {
+		    width: 100%;
+		    height: 30px;
+		    border-radius: 5px;
+		    font-size: 1.1em;
+		    line-height: 30px;
+		    box-sizing: border-box;
+		    padding-left: 10px;
+		}
+
+		#results {
+			box-sizing: border-box;
+		    list-style-type: none;
+		    width: 100%;
+		    font-size: 1.1em;
+		    padding: 0px;
+		    margin: 0px;
+		}
+
+		#results ul {
+			list-style-type: none;
+			padding: 0px;
+			margin:0px;
+		}
+
+		#results li {
+			box-sizing: border-box;
+			width: 100%;
+		    padding: 10px;
+		    background-color: #fc6;
+		    border-bottom: 1px dotted #999;
+		}
+
+		#results li:hover {
+			background-color: #ffdf9f;
+		}
+
+
+	}
+
+
+}
+
+

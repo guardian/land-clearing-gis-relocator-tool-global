@@ -76,6 +76,14 @@ export class Preflight {
 
         this.database.description = this.googledoc[self.database.displayGeo].description
 
+        this.database.geolocation = false
+
+        this.database.geocheck =  true
+
+        this.database.userLatitude = null
+
+        this.database.userLongitude = null
+
 	}
 
     multiplyer(unit) {
@@ -186,6 +194,15 @@ export class Preflight {
     async process() {
 
         var self = this
+
+        await this.database.postcodes.forEach(function(value, index) {
+
+                value.latitude = +value.latitude
+                value.longitude = +value.longitude
+                value["meta"] = value.postcode + ' | ' + value.place_name;
+
+            });
+
 
         return { database : self.database, settings : self.settings }
 

@@ -7,16 +7,27 @@ import settings from './data/settings.json'
 
 var app = {
 
-	init: () => {
+	preload: (key) => {
+
+		loadJson(`https://interactive.guim.co.uk/docsdata/1bClr8buuWUaKj01NolwaJy2JR_SR5hKEAjQoJPaGKcw.json`)
+			.then((resp) => {
+
+				app.init(resp.sheets.postcodes)
+				
+			})
+
+	},
+
+	init: (postcodes) => {
 
 		var toolbelt = new Toolbelt()
 
-		var key = ( toolbelt.getURLParams('key')!=null) ? toolbelt.getURLParams('key') : "1W6Y3nd7AbfbfPLyqcuHuF-odvoLVuYK92X9BXqXq01Q" ;
+		var key = "1W6Y3nd7AbfbfPLyqcuHuF-odvoLVuYK92X9BXqXq01Q";
 
 		loadJson(`https://interactive.guim.co.uk/docsdata/${key}.json`)
 			.then((data) => {
 
-				var wrangle = new Preflight(data.sheets.Sheet1, key, settings)
+				var wrangle = new Preflight(data.sheets.Sheet1, key, settings, postcodes)
 
 				wrangle.process().then( (application) => {
 
@@ -30,4 +41,4 @@ var app = {
 	}
 }
 
-app.init()
+app.preload()

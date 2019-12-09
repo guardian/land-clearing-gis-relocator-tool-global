@@ -34,6 +34,11 @@
 
 		</div>
 
+
+	<div class="navigation-container" id="navbar">
+
+		<div class="searchbox-container">
+
             <div id="cityselect">
 
                 <select value='{{displayCity}}'>
@@ -47,6 +52,54 @@
                 </select>
 
             </div>
+
+			{{#if geolocation}}
+
+				{{#if isApp}}
+
+				{{else}}
+
+				<div class="geo-switch" on-tap="['geo']"></div>
+
+				{{/if}}
+
+			{{/if}}
+
+            <div id="searchbox">
+
+                <div class="{{#if isApp}}app-holder isApp{{else}}inputbox-holder{{/if}}">
+
+                    <form autocomplete="off">
+
+                        <input on-keydown='keydown' class="frontier-sr-only" id="inputbox" placeholder="Enter a city" size="90" type="text" value="{{user_input}}">
+
+                    </form>
+
+                    <div id="results">
+                    	
+                    	{{#if list}}
+
+						<ul>
+
+							{{#each postcodeShortlist}}
+
+							<li on-tap="['postcode', latitude, longitude]">{{meta}}</li>
+
+							{{/each}}
+
+						</ul>
+
+                    	{{/if}}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 	</div>
 
