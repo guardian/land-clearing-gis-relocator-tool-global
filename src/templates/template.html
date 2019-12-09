@@ -114,6 +114,23 @@
 
 	</div>
 
+    <div class="share-link-box">
+
+        <div on-tap='showLink' class="about_database">Share this location</div>
+
+        {{#showLink}}
+
+        <div class="incident-link">
+
+            <input class="incident-link-field" value="https://www.theguardian.com/australia-news/datablog/ng-interactive/2019/dec/07/how-big-are-the-fires-burning-on-the-east-coast-of-australia-interactive-map?lat={{latitude}}&lng={{longitude}}">
+
+        </div>
+
+        {{/showLink}}
+        
+    </div>
+
+
 	<!-- <div id="map_caption">Source: Guardian graphic: {{source}}</div> -->
 
 </div>

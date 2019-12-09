@@ -1,0 +1,76 @@
+
+
+.about_database {
+	box-sizing: border-box;
+	height: 40px;
+	border-radius: 20px;
+	background-color: #a31a1c;
+	color: white;
+	text-align: center;
+	line-height: 40px;
+	font-family: 'Guardian Text Sans Web', TextSans, Arial, sans-serif;
+	cursor: pointer;
+	margin-right: 10px;
+	float: left;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.share-link-box {
+	width: 100%;
+	display: inline-block;
+	box-sizing: border-box;
+	margin-top: 10px;
+
+	input {
+		color: inherit;
+		font: inherit;
+		margin: 0;
+		-webkit-font-smoothing: antialiased;
+	}
+	input::-moz-focus-inner {
+		border: 0;
+		padding: 0;
+	}
+	input {
+		line-height: normal;
+	}
+	::-moz-selection {
+		background: #ffe500;
+		color: #121212;
+	}
+	::selection {
+		background: #ffe500;
+		color: #121212;
+	}
+	/*! CSS Used from: https://assets.guim.co.uk/stylesheets/34c092721cd48ba90dfa205824941d3c/print.css ; media=print */
+
+	@media print {
+		* {
+			max-width: 100%!important;
+			margin: 0!important;
+			padding: 0!important;
+			border: 0!important;
+			min-height: 0!important;
+			background-color: #ffffff!important;
+			color: #000000!important;
+		}
+	}
+	/*! CSS Used from: Embedded */
+
+	.incident-link {
+		width: 100%;
+	}
+	.incident-link-field {
+		width: 100%;
+		margin-top: 20px;
+		box-sizing: border-box;
+		font-family: 'Guardian Text Sans Web', TextSans, Arial, sans-serif;
+		font-size: 12px;
+		padding: 3px;
+	}
+
+
+
+}
+
+

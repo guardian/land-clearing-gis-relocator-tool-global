@@ -11,6 +11,7 @@ import ractiveTap from 'ractive-events-tap'
 import ractiveEventsHover from 'ractive-events-hover'
 import ractiveFade from 'ractive-transitions-fade'
 import { Toolbelt } from '../modules/toolbelt'
+import share from '../modules/share'
 //https://github.com/Turfjs/turf/tree/master/packages/turf-transform-translate
 
 export class Relocator {
@@ -48,59 +49,66 @@ export class Relocator {
 
         var self = this
 
-        console.log(Math.floor(Math.random() * 7) + 3)
-
-          if (window.guardian) {
-
-            console.log("yep")
+        if (window.guardian) {
 
             try {
 
-              if (window.guardian.config.page.pageAdTargeting.cc) {
+                if (window.guardian.config.page.pageAdTargeting.cc) {
 
-                console.log(window.guardian.config.page.pageAdTargeting.cc)
+                    self.database.displayCity = self.getCity(window.guardian.config.page.pageAdTargeting.cc)
 
-                self.database.displayCity = self.getCity(window.guardian.config.page.pageAdTargeting.cc)
-                console.log("displayCity", self.database.displayCity)
-                
-                self.settings.latitude = self.database.cities[self.database.displayCity].latitude
-                self.settings.longitude = self.database.cities[self.database.displayCity].longitude
-                
-                clearInterval(self.interval);
+                    self.database.latitude = self.database.cities[self.database.displayCity].latitude
 
-                self.interval = null
+                    self.database.longitude = self.database.cities[self.database.displayCity].longitude
 
-                self.ractivate()
+                    if (self.settings.shareLat!=null&&self.settings.shareLng!=null) {
+                        console.log("This has the lat and lng in the URL")
+                        console.log(self.settings.shareLat,self.settings.shareLng)
+                        self.database.latitude = self.settings.shareLat
+                        self.database.longitude = self.settings.shareLng
+                        self.database.displayCity = -1
+                        self.database.dropCity = false
+                    }
 
-              }
+                    clearInterval(self.interval);
 
-            }
-            catch(err) {
+                    self.interval = null
+
+                    self.ractivate()
+
+                }
+
+            } catch(err) {
+
               console.log(err)
+
             }
 
-          } else {
+        }
 
-            console.log("window.guardian not in the hood")
+        this.counter = this.counter + 1
 
-          }
+        if (this.counter > 5) {
 
-          this.counter = this.counter + 1
+            clearInterval(self.interval);
 
-          if (this.counter > 5) {
+            self.interval = null
+            self.database.displayCity = Math.floor(Math.random() * 8);
+            self.database.latitude = self.database.cities[self.database.displayCity].latitude
+            self.database.longitude = self.database.cities[self.database.displayCity].longitude
 
-                clearInterval(self.interval);
+            if (self.settings.shareLat!=null&&self.settings.shareLng!=null) {
+                console.log("This has the lat and lng in the URL")
+                console.log(self.settings.shareLat,self.settings.shareLng)
+                self.database.latitude = self.settings.shareLat
+                self.database.longitude = self.settings.shareLng
+                self.database.displayCity = -1
+                self.database.dropCity = false
+            }
 
-                self.interval = null
-                self.database.displayCity = Math.floor(Math.random() * 8);
-                self.settings.latitude = self.database.cities[self.database.displayCity].latitude
-                self.settings.longitude = self.database.cities[self.database.displayCity].longitude
+            self.ractivate()
 
-                self.ractivate()
-
-          }
-
-
+        }
 
     }
 
@@ -180,10 +188,8 @@ export class Relocator {
 
         })
 
-
         this.ractive.observe('displayGeo', ( newValue, oldValue ) => {
 
-            console.log("newValue",newValue)
             self.database.displayGeo = newValue;
 
             if (oldValue != undefined) {
@@ -198,10 +204,10 @@ export class Relocator {
 
                 this.settings.area = this.database.googledoc[self.database.displayGeo].area * this.settings.multiply 
 
-                self.reposition(self.settings.latitude, self.settings.longitude, false)
-
+                self.reposition(self.database.latitude, self.database.longitude, false)
 
             }
+
         });
 
         this.ractive.observe('displayCity', ( newValue, oldValue ) => {
@@ -210,11 +216,11 @@ export class Relocator {
 
                 self.database.displayCity = newValue;
 
-                self.settings.latitude = self.database.cities[self.database.displayCity].latitude
+                self.database.latitude = self.database.cities[self.database.displayCity].latitude
 
-                self.settings.longitude = self.database.cities[self.database.displayCity].longitude
+                self.database.longitude = self.database.cities[self.database.displayCity].longitude
             
-                self.reposition(self.settings.latitude, self.settings.longitude, true)
+                self.reposition(self.database.latitude, self.database.longitude, true)
 
 
             }
@@ -229,6 +235,13 @@ export class Relocator {
             }
 
         });
+
+        this.ractive.on('showLink', function(e) {
+
+            self.database.showLink = self.database.showLink ? false : true ;
+
+            self.ractive.set(self.database)
+        })
 
         this.googleizer()
 
@@ -271,22 +284,11 @@ export class Relocator {
 
     }
 
-
     multiplyer(unit) {
 
-        if (unit==='hectares' || unit==='hectare') {
-            return 10000
-        }
-
-        if (unit==='kilometers' || unit==='kilometres') {
-            return 1000000
-        }
-
-        if (unit==='acres' || unit==='acre') {
-            return 4046.86
-        }
-
-        return 1 // Metres if nothing else is specified
+        return (unit==='hectares' || unit==='hectare') ? 10000 :
+            (unit==='kilometers' || unit==='kilometres') ? 1000000 :
+            (unit==='acres' || unit==='acre') ? 4046.86 : 1 ;
 
     }
 
@@ -308,7 +310,7 @@ export class Relocator {
 
         this.map = new L.Map('map', { 
             renderer: L.canvas(),
-            center: new L.LatLng(self.settings.latitude, self.settings.longitude), 
+            center: new L.LatLng(self.database.latitude, self.database.longitude), 
             zoom: self.settings.zoom,
             scrollWheelZoom: false,
             dragging: true,
@@ -325,13 +327,13 @@ export class Relocator {
 
         }).addTo(self.map);
 
-        self.createPoly(self.settings.latitude, self.settings.longitude)
+        self.createPoly(self.database.latitude, self.database.longitude)
 
         this.map.on('click', function(e){
           var coord = e.latlng;
-          self.settings.latitude = coord.lat;
-          self.settings.longitude = coord.lng;
-          self.reposition(self.settings.latitude, self.settings.longitude, false)
+          self.database.latitude = coord.lat;
+          self.database.longitude = coord.lng;
+          self.reposition(self.database.latitude, self.database.longitude, false)
         });
 
         self.geocheck()
@@ -383,7 +385,9 @@ export class Relocator {
         };
 
         self.settings.geoJSON = L.geoJSON(polygons, {
+
             style: myStyle
+
         }).addTo(self.map);
 
         try {
@@ -401,9 +405,9 @@ export class Relocator {
 
         var self = this
 
-        self.settings.latitude = latitude
+        self.database.latitude = latitude
 
-        self.settings.longitude = longitude
+        self.database.longitude = longitude
 
         if (self.settings.geoJSON!=null) {
 

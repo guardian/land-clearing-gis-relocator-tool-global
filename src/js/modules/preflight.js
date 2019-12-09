@@ -1,6 +1,6 @@
 export class Preflight {
 
-	constructor(data, key, settings, postcodes) {
+	constructor(data, key, settings, postcodes, lat, lng) {
 
 		var self = this
 
@@ -36,9 +36,11 @@ export class Preflight {
 
         this.settings.label = data[self.settings.id].description
 
-        this.settings.latitude = this.settings.cities[0].latitude
+        this.settings.shareLat = lat
 
-        this.settings.longitude = this.settings.cities[0].longitude
+        this.settings.shareLng = lng
+
+
 
         this.settings.originLat = this.settings.latitude
                        
@@ -51,6 +53,11 @@ export class Preflight {
         this.settings.geoJSON = null
 
         this.database = {}    
+
+        this.database.latitude = this.settings.cities[0].latitude
+
+        this.database.longitude = this.settings.cities[0].longitude
+        
 
         this.database.postcodeShortlist = []
 
@@ -86,23 +93,15 @@ export class Preflight {
 
         this.database.userLongitude = null
 
+        this.database.showLink = false
+
 	}
 
     multiplyer(unit) {
 
-        if (unit==='hectares' || unit==='hectare') {
-            return 10000
-        }
-
-        if (unit==='kilometers' || unit==='kilometres') {
-            return 1000000
-        }
-
-        if (unit==='acres' || unit==='acre') {
-            return 4046.86
-        }
-
-        return 1 // Metres if nothing else is specified
+        return (unit==='hectares' || unit==='hectare') ? 10000 :
+            (unit==='kilometers' || unit==='kilometres') ? 1000000 :
+            (unit==='acres' || unit==='acre') ? 4046.86 : 1 ;
 
     }
 
