@@ -3,7 +3,7 @@ import { Relocator } from './modules/relocator'
 import { Toolbelt } from './modules/toolbelt'
 import { Preflight } from './modules/preflight'
 import settings from './data/settings.json'
-
+import { Loader, LoaderOptions } from 'google-maps';
 
 var app = {
 
@@ -49,4 +49,38 @@ var app = {
 	}
 }
 
-app.preload()
+async function alphabet() {
+
+  return new Promise(function(resolve, reject) {
+
+        try {
+
+		    var loader = new Loader('AIzaSyD8Op4vGvy_plVVJGjuC5r0ZbqmmoTOmKk');
+
+		    loader.load().then(data => resolve(data))
+
+        } catch(e) {
+
+            reject(e);
+
+        }
+
+  });
+
+}
+
+async function boom() {
+
+	console.log(`Version 17 May 2021`)
+
+  await alphabet().then(data => {
+
+    app.preload()
+
+  })
+
+}
+
+boom();
+
+

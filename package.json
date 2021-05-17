@@ -52,7 +52,7 @@
   "dependencies": {
     "@turf/turf": "^5.1.6",
     "core-js": "^2.6.2",
-    "google-maps": "^3.3.0",
+    "google-maps": "^4.3.3",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.6.1",
     "gulp-sass": "^4.0.2",

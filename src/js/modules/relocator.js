@@ -1,5 +1,5 @@
 import template from '../../templates/template.html'
-import GoogleMapsLoader from 'google-maps';
+
 //import GoogleMapsLoader from '@google/maps'
 import mapstyles from '../data/mapstyles.json'
 import L from '../modules/leaflet/dist/leaflet-src'
@@ -243,7 +243,7 @@ export class Relocator {
             self.ractive.set(self.database)
         })
 
-        this.googleizer()
+        self.initMap()
 
     }
 
@@ -289,18 +289,6 @@ export class Relocator {
         return (unit==='hectares' || unit==='hectare') ? 10000 :
             (unit==='kilometers' || unit==='kilometres') ? 1000000 :
             (unit==='acres' || unit==='acre') ? 4046.86 : 1 ;
-
-    }
-
-    googleizer() {
-
-        var self = this
-
-        GoogleMapsLoader.KEY = 'AIzaSyD8Op4vGvy_plVVJGjuC5r0ZbqmmoTOmKk';
-        GoogleMapsLoader.REGION = 'AU';
-        GoogleMapsLoader.load(function(google) {
-            self.initMap()
-        });
 
     }
 
